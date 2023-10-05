@@ -54,10 +54,12 @@ class ItemListFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
 
         val adapter = ItemListAdapter {
+            val action = ItemListFragmentDirections.actionItemListFragmentToItemDetailFragment(it.id)
+            findNavController().navigate(action)
         }
         binding.recyclerView.adapter = adapter
 
-        viewModel.allItems.observe(this.viewLifecycleOwner) { items ->
+        viewModel.allItems.observe(viewLifecycleOwner) { items ->
             items.let {
                 adapter.submitList(it)
             }
